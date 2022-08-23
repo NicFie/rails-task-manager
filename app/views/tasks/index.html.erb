@@ -1,13 +1,27 @@
-<h1>My tasks</h1>
 
-<ul>
-  <% @tasks.each do |task| %>
-    <% if task.completed %>
-      <li><i class="fa-regular fa-square-check"></i> <%= link_to "#{task.title}", task_path(task.id) %></li>
-    <% else %>
-      <li><i class="fa-regular fa-square"></i> <%= link_to "#{task.title}", task_path(task.id) %></li>
+
+<div class="container w-50">
+  <h1>My tasks</h1>
+  <ul class="list-group mt-5">
+    <% @tasks.each do |task| %>
+      <% if task.completed %>
+        <li class="list-group-item">
+          <i class="fa-regular fa-square-check"></i> <%= link_to "#{task.title}", task_path(task.id) %>
+          <%= link_to ('<i class="fa-regular fa-trash-can ms-3"></i>').html_safe,
+            task_path(task),
+            data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+          %>
+        </li>
+      <% else %>
+        <li class="list-group-item">
+          <i class="fa-regular fa-square"></i> <%= link_to "#{task.title}", task_path(task.id) %>
+          <%= link_to ('<i class="fa-regular fa-trash-can ms-3"></i>').html_safe,
+            task_path(task),
+            data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+          %>
+        </li>
+      <% end %>
     <% end %>
-  <% end %>
-</ul>
-
-<%= link_to 'Add new task', new_task_path %>
+  </ul>
+  <%= link_to 'Add new task', new_task_path, class: 'btn btn-primary mt-4' %>
+</div>
